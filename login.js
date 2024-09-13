@@ -13,7 +13,7 @@ const Login = ({ navigation }) => {
       {/* Form */}
       <View style={{
         flex: 1,
-        justifyContent: 'center', // Center the form vertically
+        justifyContent: 'center', 
         paddingHorizontal: 20,
       }}>
         {/* Email Input */}

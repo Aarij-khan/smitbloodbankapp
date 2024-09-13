@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Image, Dimensions, ScrollView, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import { navigation } from "@react-navigation/native";
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Home = ({navigation}) => {
+
+
+
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Navbar */}
       <View style={styles.navbar}>
         <Text style={styles.navbarTitle}>Blood Bank App</Text>
         <View style={styles.navbarActions}>
-          <TouchableOpacity onPress={() => navigation.navigate('signup')}>
-            <Text style={styles.navbarButton}>Profile</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.navbarButton}>Login</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => console.log('Logout')}>
+          <TouchableOpacity onPress={() => AsyncStorage.removeItem("uid")}>
             <Text style={styles.navbarButton}>Logout</Text>
           </TouchableOpacity>
         </View>

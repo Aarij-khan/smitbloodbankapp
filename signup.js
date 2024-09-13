@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text ,ActivityIndicator } from "react-native";
 import { TextInput, Button, Appbar } from "react-native-paper";
 import {auth , db} from "./firebase.config";
 import {createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 
@@ -12,6 +14,24 @@ const Signup = ({ navigation }) => {
   const [Email,setEmail] = useState("");
   const [Password,setPassword] = useState("");
   const [isLoading,setIsLoading] = useState(false);
+ useEffect(() => {
+  getuser();
+
+ }, []);
+
+   function getuser() {
+  AsyncStorage.getItem('uid')
+  .then((uid) => {
+    if (uid !== null) {
+      console.log('UID retrieved:', uid);
+      navigation.navigate('Home');
+    } else {
+      console.log('No UID found in AsyncStorage.');
+      navigation.navigate('signup');
+      
+    }
+  })
+ }
 
   const handleSignup = () => {
 
@@ -22,15 +42,22 @@ const Signup = ({ navigation }) => {
     createUserWithEmailAndPassword(auth, Email, Password)
   .then((userCredential) => {
     const uid = userCredential.user.uid;
+		console.log("TCL: handleSignup -> uid", uid)
     let userInfo ={Email,Name,uid}
+    console.log('UID saved successfully');
+    setIsLoading(false)
     setDoc(doc(db, "users", uid),userInfo)
-		console.log("TCL: handleSignup -> user", userCredential);
+    AsyncStorage.setItem('uid', uid)
+    .then(()=>{
+      console.log("uid save hogayi");
+      
+    })
   })
   .catch((error) => {
-    alert(error.message);
-    setIsLoading(false)
+    console.error('Error signing up or saving UID:', error);
+    alert(error)
   });
-}
+};
 
 
     
@@ -48,7 +75,7 @@ const Signup = ({ navigation }) => {
         {/* Name Input */}
         <TextInput
         value={Name}
-          label="Name"
+          label="Namse"
           mode="outlined"
           style={{ marginBottom: 15, backgroundColor: "white" }}
           outlineColor="#b71c1c"
