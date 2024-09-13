@@ -1,4 +1,4 @@
-import { View, Text,Image } from 'react-native'
+import { View, Text,Image, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { TextInput } from 'react-native-paper';
 import moment from 'moment';
@@ -8,30 +8,32 @@ import { db } from '../firebase.config';
 
 const Chat = ({ route }) => {
   const { client } = route.params;
-  
+   console.log(client.uid, `hghg`);
+   
   
   const [input,setInput] = useState("");
   const [Chat, setChat] = useState([]);
 
   useEffect(() => {
-    const q = query(collection(db, "Msg"), where(resolvedUID, "==", true),where(client.myuid, "==", true));
+    const q = query(collection(db, "Msg"), where(client.uid, "==", true),where(client.myuid, "==", true));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const list = [];
       querySnapshot.forEach((doc) => {
         list.push(doc.data());
       });
-
+      console.log("TCL: unsubscribe -> list", list)
+      
       const sortList = list.sort((a,b)=> a.createdAt - b.createdAt)
       setChat(sortList)
     });
     return () => unsubscribe()
-  }, []);
+  }, [client.myuid]);
 
 
   async function sendMsg() {
     
-    const resolvedUID = await Promise.resolve(client.myuid);
-    const UID = await Promise.resolve(client.uid);
+    const resolvedUID = client.myuid;
+    const UID = client.uid;
     try {
       const docRef = await addDoc(collection(db, "Msg"), {
         input,
@@ -51,17 +53,22 @@ const Chat = ({ route }) => {
     <View>
       {Chat.map((e,idx)=>{
         return(
+          <ScrollView>
+
+         
           <View style={{
             width: '100%',
             display: 'flex',
+            marginLeft:60,
             justifyContent: client.myuid == e.senderId ? 'flex-end' : 'flex-start',
           }}>
           <View key={idx} className={`h-33 bg-green-600 border-2 w-36 rounded-xl p-2`}>
-            <Text>{e.message}</Text>
+            <Text>{e.input}</Text>
             <Text>{moment(e.createdAt).startOf('second').fromNow()}</Text>
           </View>
 
           </View>
+          </ScrollView>
         )
       })}
     <View style={{display:'flex',flexDirection:'row',alignItems:'center',marginTop:610,gap:10}}>
