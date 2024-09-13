@@ -11,7 +11,7 @@ function App() {
   return (
     <PaperProvider>
       <NavigationContainer>
-        <Stack.Navigator  initialRouteName="signup" screenOptions={{headerShown:false}}>
+        <Stack.Navigator  initialRouteName="Signup" screenOptions={{headerShown:false}}>
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="signup" component={Signup} />

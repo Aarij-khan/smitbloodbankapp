@@ -38,20 +38,20 @@ const Signup = ({ navigation }) => {
     if (Email != "" && Password != "" ) {
       
  
+      createUserWithEmailAndPassword(auth, Email, Password)
+      .then((userCredential) => {
     setIsLoading(true)
-    createUserWithEmailAndPassword(auth, Email, Password)
-  .then((userCredential) => {
     const uid = userCredential.user.uid;
 		console.log("TCL: handleSignup -> uid", uid)
     let userInfo ={Email,Name,uid}
     console.log('UID saved successfully');
-    setIsLoading(false)
     setDoc(doc(db, "users", uid),userInfo)
     AsyncStorage.setItem('uid', uid)
     .then(()=>{
       console.log("uid save hogayi");
       
     })
+    setIsLoading(false)
   })
   .catch((error) => {
     console.error('Error signing up or saving UID:', error);

@@ -5,7 +5,10 @@ import { navigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const Home = ({navigation}) => {
 
-
+function handlelogout() {
+  AsyncStorage.removeItem("uid");
+  navigation.navigate("Login")
+}
 
 
   return (
@@ -17,7 +20,7 @@ const Home = ({navigation}) => {
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text style={styles.navbarButton}>Login</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => AsyncStorage.removeItem("uid")}>
+          <TouchableOpacity onPress={handlelogout}>
             <Text style={styles.navbarButton}>Logout</Text>
           </TouchableOpacity>
         </View>

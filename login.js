@@ -1,58 +1,71 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useState } from "react";
+import { View, Text ,ActivityIndicator} from "react-native";
 import { TextInput, Button, Appbar } from "react-native-paper";
+import {signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./firebase.config";
 
 const Login = ({ navigation }) => {
+  const [email,setemail] = useState("");
+  const [password,setpassword] = useState("");
+  const [isLoading,setIsLoading] = useState(false);
+
+  function handleLogin() {
+    if (email != ""&& password != "") {
+      signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    setIsLoading(true)
+    const user = userCredential.user;
+    navigation.navigate("Home");
+    setIsLoading(false);
+  })
+  .catch((error) => {
+     alert(error.message);
+     setIsLoading(false)
+     
+  });
+    }
+    
+  }
   return (
     <View style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
       {/* Header */}
       <Appbar.Header style={{ backgroundColor: "#b71c1c" }}>
         <Appbar.Content title="Login" />
       </Appbar.Header>
-
+      <View style={{ flex: 1, justifyContent: "center", padding: 20 }}>
       {/* Form */}
-      <View style={{
-        flex: 1,
-        justifyContent: 'center', 
-        paddingHorizontal: 20,
-      }}>
-        {/* Email Input */}
-        <TextInput
+      <TextInput
+        value={email}
           label="Email"
           mode="outlined"
-          style={{ marginBottom: 20 }}
-          autoCompleteType="email"
+          style={{ marginBottom: 15, backgroundColor: "white" }}
+          outlineColor="#b71c1c"
+          activeOutlineColor="#b71c1c"
+          onChangeText={(text) => setemail(text)} 
         />
 
         {/* Password Input */}
         <TextInput
+        value={password}
           label="Password"
           mode="outlined"
           secureTextEntry
-          style={{ marginBottom: 20 }}
-          autoCompleteType="password"
+          style={{ marginBottom: 15, backgroundColor: "white" }}
+          outlineColor="#b71c1c"
+          activeOutlineColor="#b71c1c"
+          onChangeText={(e)=>setpassword(e)} 
         />
 
-        {/* Forgot Password */}
-        <Text style={{
-          textAlign: "right",
-          color: "#b71c1c",
-          marginBottom: 20,
-        }}>
-          Forgot Password?
-        </Text>
-
-        {/* Login Button */}
+        {isLoading?<ActivityIndicator size={50}/>:
         <Button
           mode="contained"
-          style={{
-            marginTop: 10,
-            backgroundColor: "#b71c1c",
-          }}
-          onPress={() => navigation.navigate('signup')}
+          style={{ marginTop: 20, borderRadius: 8 ,padding:4,fontWeight:"bold"}}
+          onPress={handleLogin}
+          buttonColor="#b71c1c"
         >
           Login
         </Button>
+        }
 
         {/* Signup Link */}
         <View style={{
@@ -66,13 +79,13 @@ const Login = ({ navigation }) => {
               color: "#b71c1c",
               fontWeight: "bold",
             }}
-            onPress={() => navigation.navigate('signup')}
+            onPress={() => navigation.navigate('Login')}
           >
-            Sign Up
+           sign up
           </Text>
         </View>
+        </View>
       </View>
-    </View>
   );
 };
 
