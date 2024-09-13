@@ -79,7 +79,7 @@ const Login = ({ navigation }) => {
               color: "#b71c1c",
               fontWeight: "bold",
             }}
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => navigation.navigate('signup')}
           >
            sign up
           </Text>

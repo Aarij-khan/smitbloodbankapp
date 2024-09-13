@@ -1,15 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, Dimensions, ScrollView, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
-import { navigation } from "@react-navigation/native";
-
+import {db} from "./firebase.config"
+import { collection, getDocs } from "firebase/firestore"; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const Home = ({navigation}) => {
+  const [displayUser,setdisplayUser]= useState([]);
+  const [myuid,setMyuid]= useState('');
+
 
 function handlelogout() {
-  AsyncStorage.removeItem("uid");
+  let asss = AsyncStorage.removeItem("uid") 
+  .then(() => {
+    console.log('UID removed from AsyncStorage');
+  })
+	console.log(" asss", asss)
   navigation.navigate("Login")
 }
+async function getUsers() {
+  let uid =AsyncStorage.getItem("uid")
+  setMyuid(uid)
+  const querySnapshot = await getDocs(collection(db, "users"));
+  let list = [];
+querySnapshot.forEach((doc) => {
+       list.push(doc.data());
+});
+setdisplayUser(list)
+  
+}
 
+useEffect(() => {
+  getUsers()
+}, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -68,6 +89,17 @@ function handlelogout() {
             Your donation makes a big difference in the lives of those in need. Get involved and make an impact.
           </Text>
         </View>
+        <Text style={{fontSize:32,textAlign:"center",paddingBottom:30}}>Donate Blood</Text>
+        {displayUser.map((e,idx)=>{
+          return(
+            <View key={idx} style={{display:"flex",gap:10,flexDirection:"row",alignItems:"center",justifyContent:"space-between",paddingVertical:10, borderBottomWidth:2}}>
+              <Text style={{fontSize:22}}>{e.Name}</Text>
+              <TouchableOpacity onPress={()=>navigation.navigate('chat', { client: {...e,myuid}})}>
+                <Text>Message</Text>
+              </TouchableOpacity>
+            </View>
+          )
+        })}
       </ScrollView>
     </SafeAreaView>
   );
