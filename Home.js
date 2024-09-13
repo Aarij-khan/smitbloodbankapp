@@ -3,6 +3,7 @@ import { View, Text, Image, Dimensions, ScrollView, SafeAreaView, StyleSheet, To
 import {db} from "./firebase.config"
 import { collection, getDocs } from "firebase/firestore"; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LottieView from 'lottie-react-native';
 const Home = ({navigation}) => {
   const [displayUser,setdisplayUser]= useState([]);
   const [myuid,setMyuid]= useState('');
@@ -36,7 +37,7 @@ useEffect(() => {
     <SafeAreaView style={styles.container}>
       {/* Navbar */}
       <View style={styles.navbar}>
-        <Text style={styles.navbarTitle}>Blood Bank App</Text>
+        <Text style={styles.navbarTitle}>Donate Bank </Text>
         <View style={styles.navbarActions}>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text style={styles.navbarButton}>Login</Text>
@@ -63,7 +64,7 @@ useEffect(() => {
 
         {/* Request Blood Button */}
         <TouchableOpacity style={styles.requestButton} onPress={() => console.log('Request Blood')}>
-          <Text style={styles.requestButtonText}>Request Blood</Text>
+          <Text style={styles.requestButtonText} onPress={()=>navigation.navigate('Login')}>Request Blood</Text>
         </TouchableOpacity>
 
         {/* Second Image Section */}
@@ -84,11 +85,35 @@ useEffect(() => {
             style={styles.image}
             source={{ uri: 'https://s3.eu-west-2.amazonaws.com/img.creativepool.com/files/candidate/portfolio/full/1914851.jpg' }}
           />
+          <Text style={styles.imageTitle}>Donate blood for more lives</Text>
+          <Text style={styles.imageText}>
+            Your donation makes a big difference in the lives of those in need. Get involved and make an impact.
+          </Text>
+        </View>
+        <View style={styles.imageSection}>
+          <Image
+            style={styles.image}
+            source={{ uri: 'https://media.istockphoto.com/id/1401899005/photo/friendly-hospital-phlebotomist-collecting-blood-sample-from-patient-in-lab-preparation-for.jpg?s=612x612&w=0&k=20&c=s2cKa10sW16RwTBkUWFF4OjG7rkPzylsESJhvtPbNZc=' }}
+          />
           <Text style={styles.imageTitle}>Make a Difference Today</Text>
           <Text style={styles.imageText}>
             Your donation makes a big difference in the lives of those in need. Get involved and make an impact.
           </Text>
         </View>
+        <LottieView
+        source={require('./assets/blood.json')} 
+        autoPlay
+        loop
+        style={{ width: 320, height: 200,backgroundColor:"red",marginBottom:30 }}
+      />
+        <LottieView
+        source={require('./assets/blood2.json')} 
+        autoPlay
+        loop
+        style={{ width: 320, height: 200,backgroundColor:"red",marginBottom:30 }}
+      />
+        
+    
         <Text style={{fontSize:32,textAlign:"center",paddingBottom:30}}>Donate Blood</Text>
         {displayUser.map((e,idx)=>{
           return(
@@ -116,7 +141,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign:'center',
     backgroundColor: '#b71c1c',
-    height:90,
+    height:80,
   },
   navbarTitle: {
     fontSize: 20,
@@ -124,7 +149,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     alignItems:'center',
     fontWeight: 'bold',
-    paddingLeft:5,
+    paddingLeft:10,
   },
   navbarActions: {
     flexDirection: 'row',
@@ -132,8 +157,8 @@ const styles = StyleSheet.create({
   navbarButton: {
     color: '#fff',
     fontSize: 16,
-    marginLeft: 26,
     paddingTop:10,
+    marginRight:30
   },
   contentContainer: {
     padding: 20,
