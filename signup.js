@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 import { TextInput, Button, Appbar } from "react-native-paper";
 
+
 const Signup = ({ navigation }) => {
   return (
     <View style={{ flex: 1, backgroundColor: "#fff5f5" }}>

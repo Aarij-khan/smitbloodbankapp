@@ -1,6 +1,6 @@
 import { PaperProvider } from "react-native-paper";
 import Home from "./Home";
-import Signup from "./singup";
+import Signup from "./signup";
 import Login from "./login";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -11,7 +11,7 @@ function App() {
   return (
     <PaperProvider>
       <NavigationContainer>
-        <Stack.Navigator  initialRouteName="Singup" screenOptions={{headerShown:false}}>
+        <Stack.Navigator  initialRouteName="Signup" screenOptions={{headerShown:false}}>
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="signup" component={Signup} />

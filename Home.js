@@ -1,18 +1,18 @@
 import React from 'react';
 import { View, Text, Image, Dimensions, ScrollView, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
-
-const Home = () => {
+import { navigation } from "@react-navigation/native";
+const Home = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Navbar */}
       <View style={styles.navbar}>
         <Text style={styles.navbarTitle}>Blood Bank App</Text>
         <View style={styles.navbarActions}>
-          <TouchableOpacity onPress={() => console.log('Profile')}>
+          <TouchableOpacity onPress={() => navigation.navigate('signup')}>
             <Text style={styles.navbarButton}>Profile</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => console.log('Logout')}>
-            <Text style={styles.navbarButton}>Logut</Text>
+            <Text style={styles.navbarButton}>Logout</Text>
           </TouchableOpacity>
         </View>
       </View>
