@@ -12,7 +12,7 @@ const Home = () => {
             <Text style={styles.navbarButton}>Profile</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => console.log('Logout')}>
-            <Text style={styles.navbarButton}>Logout</Text>
+            <Text style={styles.navbarButton}>Logut</Text>
           </TouchableOpacity>
         </View>
       </View>
