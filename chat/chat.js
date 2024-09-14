@@ -1,4 +1,4 @@
-import { View, Text,Image, ScrollView } from 'react-native'
+import { View, Text,Image, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { TextInput } from 'react-native-paper';
 import moment from 'moment';
@@ -8,14 +8,19 @@ import { db } from '../firebase.config';
 
 const Chat = ({ route }) => {
   const { client } = route.params;
-   console.log(client.uid, `hghg`);
+   console.log(client.uid, `samne wali ki uid`);
+   console.log(client.myuid, `meri uid`);
    
   
   const [input,setInput] = useState("");
   const [Chat, setChat] = useState([]);
+	console.log("TCL: Chat -> Chat", Chat)
+  
 
   useEffect(() => {
-    const q = query(collection(db, "Msg"), where(client.uid, "==", true),where(client.myuid, "==", true));
+    const q = query(collection(db, "Msg"))
+    // where(client.myuid, "==", true));
+    //  where(client.uid, "==", true),
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const list = [];
       querySnapshot.forEach((doc) => {
@@ -58,11 +63,13 @@ const Chat = ({ route }) => {
          
           <View style={{
             width: '100%',
+            backgroundColor:"green",
             display: 'flex',
-            marginLeft:60,
-            justifyContent: client.myuid == e.senderId ? 'flex-end' : 'flex-start',
+            padding:10,
+            marginTop:10,
+            justifyContent: client.uid == e.senderId ? 'flex-end' : 'flex-start',
           }}>
-          <View key={idx} className={`h-33 bg-green-600 border-2 w-36 rounded-xl p-2`}>
+          <View key={idx} className={`h-33 bg-green-100 border-2 w-36 rounded-xl p-2`}>
             <Text>{e.input}</Text>
             <Text>{moment(e.createdAt).startOf('second').fromNow()}</Text>
           </View>
@@ -82,7 +89,9 @@ const Chat = ({ route }) => {
       onChangeText={(text)=>setInput(text)}
 
       />
-      <Text  onPress={sendMsg} className="text-xl">hhjhh</Text>
+      <TouchableOpacity  onPress={sendMsg}>
+         <Text>Send</Text>
+      </TouchableOpacity>
       <View>
        <Image
       

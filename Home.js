@@ -75,7 +75,7 @@ const Home = ({ navigation }) => {
         {/* Request Blood Button */}
         <TouchableOpacity
           style={styles.requestButton}
-          onPress={() => console.log("Request Blood")}
+          onPress={() => navigation.navigate("Login")}
         >
           <Text
             style={styles.requestButtonText}
@@ -140,14 +140,14 @@ const Home = ({ navigation }) => {
         />
         <TouchableOpacity
           style={styles.requestButton}
-          onPress={() => console.log("Request Blood")}
+          onPress={() => navigation.navigate("doctorscreen")}
         >
           <Text
             style={styles.requestButtonText}
             onPress={() => navigation.navigate("Login")}
           >
             {" "}
-            Blood groups
+            Blood group
           </Text>
         </TouchableOpacity>
         <LottieView
@@ -167,7 +167,7 @@ const Home = ({ navigation }) => {
         >
           <Text
             style={styles.requestButtonText}
-            onPress={() => navigation.navigate("Login")}
+            onPress={() => navigation.navigate("doctorscreen")}
           >
             Connect with Doctors
           </Text>
@@ -217,6 +217,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    marginTop:30
   },
   navbar: {
     flexDirection: "row",
@@ -245,9 +246,11 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: 20,
+    
   },
   imageSection: {
     marginBottom: 20,
+    marginTop:20,
     alignItems: "center",
   },
   image: {

@@ -29,9 +29,7 @@ const Login = ({ navigation }) => {
   return (
     <View style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
       {/* Header */}
-      <Appbar.Header style={{ backgroundColor: "#b71c1c" }}>
-        <Appbar.Content title="Login" />
-      </Appbar.Header>
+      
       <View style={{ flex: 1, justifyContent: "center", padding: 20 }}>
       {/* Form */}
       <TextInput

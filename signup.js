@@ -67,10 +67,7 @@ const Signup = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff5f5" }}>
-      {/* Header */}
-      <Appbar.Header style={{ backgroundColor: "#b71c1c" }}>
-        <Appbar.Content title="Sign Up" />
-      </Appbar.Header>
+      
 
       {/* Form */}
       <View style={{ flex: 1, justifyContent: "center", padding: 20 }}>
@@ -124,7 +121,7 @@ const Signup = ({ navigation }) => {
           <Text>Already have an account? </Text>
           <Text
             style={{ color: "#b71c1c", fontWeight: "bold" }}
-            onPress={() => navigation.navigate('login')}
+            onPress={() => navigation.navigate('Login')}
           >
             Login
           </Text>
