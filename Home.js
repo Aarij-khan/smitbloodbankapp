@@ -13,20 +13,13 @@ import { db } from "./firebase.config";
 import { collection, getDocs } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LottieView from "lottie-react-native";
+
 const Home = ({ navigation }) => {
   const [displayUser, setdisplayUser] = useState([]);
+
   const [myuid, setMyuid] = useState("");
 
-  function handlelogout() {
-    let asss = AsyncStorage.removeItem("uid").then(() => {
-      console.log("UID removed from AsyncStorage");
-    });
-    console.log(" asss", asss);
-    navigation.navigate("Login");
-  }
   async function getUsers() {
-    let uid = await AsyncStorage.getItem("uid");
-    setMyuid(uid);
     const querySnapshot = await getDocs(collection(db, "users"));
     let list = [];
     querySnapshot.forEach((doc) => {
@@ -34,27 +27,18 @@ const Home = ({ navigation }) => {
     });
     setdisplayUser(list);
   }
-
+  async function checkUsers() {
+    let TokenUid = await AsyncStorage.getItem("uid");
+    setMyuid(TokenUid);
+    console.log(" TokenUid mil gayi", TokenUid);
+  }
   useEffect(() => {
+    checkUsers();
     getUsers();
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Navbar */}
-      <View style={styles.navbar}>
-        <Text style={styles.navbarTitle}>Donate Bank </Text>
-        <View style={styles.navbarActions}>
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text style={styles.navbarButton}>Login</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handlelogout}>
-            <Text style={styles.navbarButton}>Logout</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Content */}
       <ScrollView contentContainerStyle={styles.contentContainer}>
         {/* First Image Section */}
         <View style={styles.imageSection}>
@@ -75,16 +59,132 @@ const Home = ({ navigation }) => {
         {/* Request Blood Button */}
         <TouchableOpacity
           style={styles.requestButton}
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => navigation.navigate("Chat with donors")}
         >
+          <Text style={styles.requestButtonText}>Chat with donors</Text>
+        </TouchableOpacity>
+        <LottieView
+          source={require("./assets/blood2.json")}
+          autoPlay
+          loop
+          style={{
+            width: 320,
+            height: 200,
+            marginTop: 20,
+            backgroundColor: "red",
+            marginBottom: 20,
+          }}
+        />
+        <Text style={styles.imageText}>
+          Donating blood has numerous benefits. It not only helps save lives but
+          also can improve the donor’s health.
+        </Text>
+        <TouchableOpacity style={styles.requestButton}>
           <Text
             style={styles.requestButtonText}
-            onPress={() => navigation.navigate("Login")}
+            onPress={() => navigation.navigate("doctorscreen")}
           >
-            Request Blood
+            Heart beats checkup
           </Text>
         </TouchableOpacity>
 
+        <LottieView
+          source={require("./assets/blood4.json")}
+          autoPlay
+          loop
+          style={{
+            width: 320,
+            height: 200,
+            marginTop: 20,
+            backgroundColor: "red",
+            marginBottom: 20,
+          }}
+        />
+        <Text style={styles.imageText}>
+          Donating blood has numerous benefits. It not only helps save lives but
+          also can improve the donor’s health.
+        </Text>
+        <TouchableOpacity style={styles.requestButton}>
+          <Text
+            style={styles.requestButtonText}
+            onPress={() => navigation.navigate("doctorscreen")}
+          >
+            Consultation with doctors
+          </Text>
+        </TouchableOpacity>
+        <LottieView
+          source={require("./assets/blood5.json")}
+          autoPlay
+          loop
+          style={{
+            width: 320,
+            height: 200,
+            marginTop: 20,
+            backgroundColor: "red",
+            marginBottom: 20,
+          }}
+        />
+        <Text style={styles.imageText}>
+          Donating blood has numerous benefits. It not only helps save lives but
+          also can improve the donor’s health.
+        </Text>
+        <TouchableOpacity style={styles.requestButton}>
+          <Text
+            style={styles.requestButtonText}
+            onPress={() => navigation.navigate("doctorscreen")}
+          >
+            Advice with experience doctors
+          </Text>
+        </TouchableOpacity>
+        <LottieView
+          source={require("./assets/blood6.json")}
+          autoPlay
+          loop
+          style={{
+            width: 320,
+            height: 200,
+            marginTop: 20,
+            backgroundColor: "red",
+            marginBottom: 20,
+          }}
+        />
+        <Text style={styles.imageText}>
+          Donating blood has numerous benefits. It not only helps save lives but
+          also can improve the donor’s health.
+        </Text>
+
+        <TouchableOpacity style={styles.requestButton}>
+          <Text
+            style={styles.requestButtonText}
+            onPress={() => navigation.navigate("doctorscreen")}
+          >
+            Connect with Doctors
+          </Text>
+        </TouchableOpacity>
+        <LottieView
+          source={require("./assets/blood.json")}
+          autoPlay
+          loop
+          style={{
+            width: 320,
+            marginTop: 20,
+            height: 200,
+            backgroundColor: "red",
+            marginBottom: 20,
+          }}
+        />
+        <Text style={styles.imageText}>
+          Donating blood has numerous benefits. It not only helps save lives but
+          also can improve the donor’s health.
+        </Text>
+        <TouchableOpacity style={styles.requestButton}>
+          <Text
+            style={styles.requestButtonText}
+            onPress={() => navigation.navigate("doctorscreen")}
+          >
+            Donate Blood
+          </Text>
+        </TouchableOpacity>
         {/* Second Image Section */}
         <View style={styles.imageSection}>
           <Image
@@ -114,100 +214,61 @@ const Home = ({ navigation }) => {
             Get involved and make an impact.
           </Text>
         </View>
-        <View style={styles.imageSection}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: "https://media.istockphoto.com/id/1401899005/photo/friendly-hospital-phlebotomist-collecting-blood-sample-from-patient-in-lab-preparation-for.jpg?s=612x612&w=0&k=20&c=s2cKa10sW16RwTBkUWFF4OjG7rkPzylsESJhvtPbNZc=",
-            }}
-          />
-          <Text style={styles.imageTitle}>Make a Difference Today</Text>
-          <Text style={styles.imageText}>
-            Your donation makes a big difference in the lives of those in need.
-            Get involved and make an impact.
-          </Text>
-        </View>
-        <LottieView
-          source={require("./assets/blood.json")}
-          autoPlay
-          loop
-          style={{
-            width: 320,
-            height: 200,
-            backgroundColor: "red",
-            marginBottom: 20,
-          }}
-        />
-        <TouchableOpacity
-          style={styles.requestButton}
-          onPress={() => navigation.navigate("doctorscreen")}
-        >
-          <Text
-            style={styles.requestButtonText}
-            onPress={() => navigation.navigate("Login")}
-          >
-            {" "}
-            Blood group
-          </Text>
-        </TouchableOpacity>
-        <LottieView
-          source={require("./assets/blood2.json")}
-          autoPlay
-          loop
-          style={{
-            width: 320,
-            height: 200,
-            backgroundColor: "red",
-            marginBottom: 20,
-          }}
-        />
-        <TouchableOpacity
-          style={styles.requestButton}
-          onPress={() => console.log("Request Blood")}
-        >
-          <Text
-            style={styles.requestButtonText}
-            onPress={() => navigation.navigate("doctorscreen")}
-          >
-            Connect with Doctors
-          </Text>
-        </TouchableOpacity>
 
-        <Text
-          style={{
-            fontSize: 32,
-            textAlign: "center",
-            paddingBottom: 30,
-            marginTop: 60,
-          }}
-        >
-          Donate Blood
-        </Text>
-        {displayUser.map((e, idx) => {
-          return (
-            <View
-              key={idx}
-              style={{
-                display: "flex",
-                gap: 10,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                paddingVertical: 10,
-                borderBottomWidth: 2,
-              }}
-            >
-              <Text style={{ fontSize: 22 }}>{e.Name}</Text>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("chat", { client: { ...e, myuid } })
-                }
-              >
-                <Text>Message</Text>
-              </TouchableOpacity>
+        <View style={[styles.imageSection]}>
+          <Text style={[styles.imageTitle, { marginBottom: 40, fontSize: 26 }]}>
+            Our patient reviews
+          </Text>
+          <ScrollView horizontal={true}>
+            <View style={{ flexDirection: "column", gap: 15 }}>
+              <Image
+                style={styles.imgs}
+                source={{
+                  uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3uO9Bn_p8IyMYZ-SNY7jEMtrvxDpliuu4ZA&s'
+
+                }}
+              />
+              <Text style={[styles.imageTL, {  fontSize: 26 }]}>
+               ⭐⭐⭐⭐⭐
+              </Text>
+
+              <Text style={styles.imageTxt}>
+                Your donation makes a big difference in the lives of those in
+                need. Get involved and make an impact.
+              </Text>
             </View>
-          );
-        })}
+            <View style={{ flexDirection: "column", gap: 15 ,marginLeft:20}}>
+              <Image
+                style={styles.imgs}
+                source={{
+                  uri:"https://www.cffhae.org/wp-content/uploads/2014/07/Happy-Patient-1024x683.jpg"
+                }}
+              />
+               <Text style={[styles.imageTL, {  fontSize: 26 }]}>
+               ⭐⭐⭐⭐⭐
+          </Text>
+              <Text style={styles.imageTxt}>
+                Your donation makes a big difference in the lives of those in
+                need. Get involved and make an impact.⭐
+              </Text>
+            </View>
+            <View style={{ flexDirection: "column", gap: 15 ,marginLeft:20}}>
+              <Image
+                style={styles.imgs}
+                source={{
+                  uri:'https://static1.bigstockphoto.com/9/5/8/large1500/85968620.jpg'
+                }}
+              />
+               <Text style={[styles.imageTL, {  fontSize: 26 }]}>
+               ⭐⭐⭐⭐⭐
+          </Text>
+              <Text style={styles.imageTxt}>
+                Your donation makes a big difference in the lives of those in
+                need. Get involved and make an impact.⭐
+              </Text>
+            </View>
+          </ScrollView>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -217,24 +278,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    marginTop:30
   },
-  navbar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    textAlign: "center",
-    backgroundColor: "#b71c1c",
-    height: 80,
-  },
-  navbarTitle: {
-    fontSize: 20,
-    paddingTop: 10,
-    color: "#fff",
-    alignItems: "center",
-    fontWeight: "bold",
-    paddingLeft: 10,
-  },
+
   navbarActions: {
     flexDirection: "row",
   },
@@ -246,27 +291,50 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: 20,
-    
   },
   imageSection: {
     marginBottom: 20,
-    marginTop:20,
+    marginTop: 20,
     alignItems: "center",
   },
   image: {
     width: "100%",
     height: 200,
     marginBottom: 10,
+    objectFit: "fill",
+  },
+  img: {
+    width: 300,
+    height: 200,
+    marginBottom: 10,
+    objectFit: "fill",
+  },
+  imgs: {
+    width: 300,
+    height: 200,
+    objectFit: "fill",
   },
   imageTitle: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
     textAlign: "center",
+    marginTop: 20,
+  },
+  imageTL: {
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
   },
   imageText: {
     fontSize: 16,
     textAlign: "center",
+  },
+  imageTxt: {
+    fontSize: 16,
+    textAlign: "center",
+    width: 200,
+    marginLeft: 50,
   },
   requestButton: {
     backgroundColor: "#b71c1c",
@@ -274,6 +342,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     marginVertical: 5,
+    marginTop: 20,
+  },
+  requestBtn: {
+    backgroundColor: "#b71c1c",
+    padding: 15,
+    borderRadius: 5,
+    alignItems: "center",
   },
   requestButtonText: {
     color: "#fff",

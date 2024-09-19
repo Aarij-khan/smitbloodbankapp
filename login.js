@@ -3,6 +3,7 @@ import { View, Text ,ActivityIndicator} from "react-native";
 import { TextInput, Button, Appbar } from "react-native-paper";
 import {signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase.config";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }) => {
   const [email,setemail] = useState("");
@@ -11,12 +12,18 @@ const Login = ({ navigation }) => {
 
   function handleLogin() {
     if (email != ""&& password != "") {
+      setIsLoading(true)
       signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    setIsLoading(true)
-    const user = userCredential.user;
+  .then(async(userCredential) => {
+    const uid = userCredential.user.uid;
+		console.log("TCL: handleLogin -> uid", uid)
     navigation.navigate("Home");
     setIsLoading(false);
+    await AsyncStorage.setItem('uid', uid)
+      console.log("uid save hogayi");
+      
+    setemail("")
+    setpassword("")
   })
   .catch((error) => {
      alert(error.message);

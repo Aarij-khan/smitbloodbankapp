@@ -4,23 +4,23 @@ import { TextInput } from 'react-native-paper';
 import moment from 'moment';
 import { collection, addDoc, query, where, onSnapshot  } from "firebase/firestore";
 import { db } from '../firebase.config';
+import { useRoute } from '@react-navigation/native';
 
 
-const Chat = ({ route }) => {
-  const { client } = route.params;
+const Chat = () => {
+  const route = useRoute();
+  const { client } = route.params; 
+   console.log("TCL: Chat -> client", client)
    console.log(client.uid, `samne wali ki uid`);
    console.log(client.myuid, `meri uid`);
-   
   
   const [input,setInput] = useState("");
   const [Chat, setChat] = useState([]);
-	console.log("TCL: Chat -> Chat", Chat)
   
 
   useEffect(() => {
-    const q = query(collection(db, "Msg"))
-    // where(client.myuid, "==", true));
-    //  where(client.uid, "==", true),
+    const q = query(collection(db, "Msg"),where(client.myuid, "==", true),where(client.uid, "==", true));
+     
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const list = [];
       querySnapshot.forEach((doc) => {
@@ -32,20 +32,17 @@ const Chat = ({ route }) => {
       setChat(sortList)
     });
     return () => unsubscribe()
-  }, [client.myuid]);
+  }, [client]);
 
 
   async function sendMsg() {
-    
-    const resolvedUID = client.myuid;
-    const UID = client.uid;
     try {
       const docRef = await addDoc(collection(db, "Msg"), {
         input,
-        [resolvedUID]: true,
-        senderId: resolvedUID,
+        [client.myuid]: true,
+        senderId: client.myuid,
         createdAt: Date.now(),
-        [UID] : true,
+        [client.uid] : true,
       });
       console.log("Documentchale gaya ", docRef);
       setInput("")
@@ -55,30 +52,26 @@ const Chat = ({ route }) => {
     
   }
   return (
-    <View>
+    <View >
       {Chat.map((e,idx)=>{
         return(
-          <ScrollView>
-
-         
-          <View style={{
-            width: '100%',
-            backgroundColor:"green",
-            display: 'flex',
+          <ScrollView key={idx}>
+          <View  style={{height:'100%',width:'100%',backgroundColor:'lightgreen',  display: 'flex', justifyContent: client.myuid == e.senderId ? 'flex-end' : 'flex-start',}}>
+          <View  style={{
+            width: '30%',
+            backgroundColor:"purple",
             padding:10,
-            marginTop:10,
-            justifyContent: client.uid == e.senderId ? 'flex-end' : 'flex-start',
+            marginTop:5,
+           
           }}>
-          <View key={idx} className={`h-33 bg-green-100 border-2 w-36 rounded-xl p-2`}>
             <Text>{e.input}</Text>
             <Text>{moment(e.createdAt).startOf('second').fromNow()}</Text>
           </View>
-
           </View>
           </ScrollView>
         )
       })}
-    <View style={{display:'flex',flexDirection:'row',alignItems:'center',marginTop:610,gap:10}}>
+    <View style={{display:'flex',flexDirection:'row',gap:10,alignItems:'center',justifyContent:'center'}}>
       <TextInput 
       style={{width:290,marginLeft:10}}
         label="Messages"
@@ -92,14 +85,8 @@ const Chat = ({ route }) => {
       <TouchableOpacity  onPress={sendMsg}>
          <Text>Send</Text>
       </TouchableOpacity>
-      <View>
-       <Image
-      
-            style={{height:30,width:40,objectFit:'contain',}}
-            source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTarwDySHjJyGp-Va5nbW4Nkr8eGIUD0cbTPQ&s' }}
-          />
-          </View>
     </View>
+
     </View>
 
   )

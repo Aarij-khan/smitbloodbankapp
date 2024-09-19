@@ -37,10 +37,10 @@ const Signup = ({ navigation }) => {
 
     if (Email != "" && Password != "" ) {
       
- 
+      
+      setIsLoading(true)
       createUserWithEmailAndPassword(auth, Email, Password)
-      .then((userCredential) => {
-       setIsLoading(true)
+      .then( async(userCredential) => {
        const uid = userCredential.user.uid;
        console.log("TCL: handleSignup -> uid", uid)
        let userInfo ={Email,Name,uid}
@@ -48,16 +48,16 @@ const Signup = ({ navigation }) => {
        setDoc(doc(db, "users", uid),userInfo)
        navigation.navigate("Login");``
        setIsLoading(false)
-       AsyncStorage.setItem('uid', uid)
-    .then(()=>{
+      await AsyncStorage.setItem('uid', uid)
       console.log("uid save hogayi");
       
-    })
     setIsLoading(false)
   })
   .catch((error) => {
     console.error('Error signing up or saving UID:', error);
     alert(error)
+    setIsLoading(false)
+
   });
 };
 
