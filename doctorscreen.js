@@ -1,64 +1,63 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React from "react";
+import { StyleSheet, View, Text } from "react-native";
 import LottieView from "lottie-react-native";
-import { ScrollView } from 'react-native';
+import { Button } from "react-native-paper";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Doctorscreen = () => {
-    return (
-        <View style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-          <ScrollView>
-             <LottieView
+  return (
+    <View>
+      <View>
+        <LottieView
           source={require("./assets/blood3.json")}
           autoPlay
           loop
           style={{
-            width: 320,
-            height: 200,
-            marginBottom: 20,
-            marginTop:30
+            width: 355,
+            height: 250,
+            backgroundColor: "white",
           }}
         />
-         <Text style={{textAlign:'center'}}>Connect</Text>
-             <LottieView
-          source={require("./assets/blood5.json")}
-          autoPlay
-          loop
+      </View>
+      <View
+        style={{
+          height: "66%",
+          width: "100%",
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
+          backgroundColor: "#DC3545",
+          display: "flex",
+          // justifyContent: "center",
+        }}
+      >
+        <Text
           style={{
-            width: 320,
-            height: 200,
+            fontSize: 30,
+            fontWeight: "bold",
+            width: 300,
+            marginLeft: 35,
             marginBottom: 20,
-            marginTop:30
+            marginTop:80,
+            color:'white'
           }}
-        />
-         <Text style={{textAlign:'center'}}>Connect</Text>
-             <LottieView
-          source={require("./assets/blood6.json")}
-          autoPlay
-          loop
-          style={{
-            width: 320,
-            height: 200,
-            marginBottom: 20,
-            marginTop:30
-          }}
-        />
-        <Text style={{textAlign:'center',}}>Connect</Text>
-             <LottieView
-          source={require("./assets/blood4.json")}
-          autoPlay
-          loop
-          style={{
-            width: 320,
-            height: 200,
-            marginBottom: 20,
-          }}
-        />
-        <Text style={{textAlign:'center',}}>Connect</Text>
-        </ScrollView>
-        </View>
-    );
-}
+        >
+          Book an Appointment
+        </Text>
+        <TouchableOpacity>
+        <Button
+          mode="contained"
+          style={{ marginTop: 20, borderRadius: 8 ,padding:4,fontWeight:"bold",marginHorizontal:20,fontSize:30}}
+          buttonColor="white"
+          textColor="red"
+          labelStyle={{fontSize:21,fontWeight:"bold"}}
+        >
+          Call us
+        </Button>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
 
-const styles = StyleSheet.create({})
 
 export default Doctorscreen;

@@ -35,10 +35,10 @@ function App() {
         <Drawer.Screen name="Connect with Doctors" component={Doctorscreen} />
         <Drawer.Screen name="Chat with donors" component={Donor} options={{ headerTitle: 'Chat with donors' }}/>
         <Drawer.Screen name="Become a Donor" component={Donorform}  />
+        <Drawer.Screen name="Location" component={Location} />
         <Drawer.Screen name="Login" component={Login} />
         <Drawer.Screen name="signup" component={Signup} />
         <Drawer.Screen name="Logout" component={Logout} />
-        <Drawer.Screen name="Location" component={Location} />
       
       </Drawer.Navigator>
       {/* <Tab.Navigator>
