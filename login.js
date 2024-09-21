@@ -18,9 +18,8 @@ const Login = ({ navigation }) => {
     const uid = userCredential.user.uid;
 		console.log("TCL: handleLogin -> uid", uid)
     navigation.navigate("Home");
+    let x = await AsyncStorage.setItem('uid', uid)
     setIsLoading(false);
-    await AsyncStorage.setItem('uid', uid)
-      console.log("uid save hogayi");
       
     setemail("")
     setpassword("")

@@ -7,6 +7,7 @@ import Login from "./login";
 import Chat from "./chat/chat";
 import Doctorscreen from "./doctorscreen";
 import Donor from "./donor";
+import Donorform from "./donorform";
 import { NavigationContainer } from "@react-navigation/native";
 // import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -29,11 +30,12 @@ function App() {
         backgroundColor:"red"
       }}} >
         <Drawer.Screen name="Home" component={Home}  options={{ headerTitle: 'Donate-Blood-bank' }} />
-        <Drawer.Screen name="Login" component={Login} />
-        <Drawer.Screen name="signup" component={Signup} />
         <Drawer.Screen name="chat" component={Chat} />
         <Drawer.Screen name="Connect with Doctors" component={Doctorscreen} />
         <Drawer.Screen name="Chat with donors" component={Donor} options={{ headerTitle: 'Chat with donors' }}/>
+        <Drawer.Screen name="Become a Donor" component={Donorform}  />
+        <Drawer.Screen name="Login" component={Login} />
+        <Drawer.Screen name="signup" component={Signup} />
         <Drawer.Screen name="Logout" component={Logout} />
       
       </Drawer.Navigator>

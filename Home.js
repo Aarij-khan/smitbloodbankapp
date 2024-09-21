@@ -15,27 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import LottieView from "lottie-react-native";
 
 const Home = ({ navigation }) => {
-  const [displayUser, setdisplayUser] = useState([]);
 
-  const [myuid, setMyuid] = useState("");
-
-  async function getUsers() {
-    const querySnapshot = await getDocs(collection(db, "users"));
-    let list = [];
-    querySnapshot.forEach((doc) => {
-      list.push(doc.data());
-    });
-    setdisplayUser(list);
-  }
-  async function checkUsers() {
-    let TokenUid = await AsyncStorage.getItem("uid");
-    setMyuid(TokenUid);
-    console.log(" TokenUid mil gayi", TokenUid);
-  }
-  useEffect(() => {
-    checkUsers();
-    getUsers();
-  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

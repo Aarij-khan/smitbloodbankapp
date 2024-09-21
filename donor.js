@@ -7,6 +7,7 @@ import { db } from './firebase.config';
 import { getDocs ,collection } from 'firebase/firestore';
 const Donor = ({ navigation }) => {
     const [displayUser, setdisplayUser] = useState([]);
+    console.log("🚀 ~ Donor ~ displayUser:", displayUser)
   
     const [myuid, setMyuid] = useState("");
   

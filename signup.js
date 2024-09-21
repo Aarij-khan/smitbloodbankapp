@@ -43,10 +43,8 @@ const Signup = ({ navigation }) => {
       .then( async(userCredential) => {
        const uid = userCredential.user.uid;
        console.log("TCL: handleSignup -> uid", uid)
-       let userInfo ={Email,Name,uid}
        console.log('UID saved successfully');
-       setDoc(doc(db, "users", uid),userInfo)
-       navigation.navigate("Login");``
+       navigation.navigate("Home");
        setIsLoading(false)
       await AsyncStorage.setItem('uid', uid)
       console.log("uid save hogayi");
