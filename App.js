@@ -11,6 +11,7 @@ import Donorform from "./donorform";
 import { NavigationContainer } from "@react-navigation/native";
 // import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import Location from "./location";
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // const Stack = createNativeStackNavigator();
@@ -37,6 +38,7 @@ function App() {
         <Drawer.Screen name="Login" component={Login} />
         <Drawer.Screen name="signup" component={Signup} />
         <Drawer.Screen name="Logout" component={Logout} />
+        <Drawer.Screen name="Location" component={Location} />
       
       </Drawer.Navigator>
       {/* <Tab.Navigator>
