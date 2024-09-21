@@ -11,8 +11,8 @@ const Location = () => {
         initialRegion={{
           latitude: 24.8966,
           longitude: 67.1847,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitudeDelta: 0.1,
+          longitudeDelta: 0.1,
         }}
       >
         <Marker coordinate={{ latitude: 24.8966, longitude: 67.1847 }}>
