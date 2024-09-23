@@ -4,7 +4,8 @@ import {  View ,Text,TouchableOpacity, ActivityIndicator} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { db } from './firebase.config';
-import { getDocs ,collection } from 'firebase/firestore';
+// import { getDocs ,collection } from 'firebase/firestore';
+import { collection, onSnapshot } from "firebase/firestore";
 const Donor = ({ navigation }) => {
     const [displayUser, setdisplayUser] = useState([]);
     const [Loading, setLoading] = useState(false);
@@ -12,32 +13,40 @@ const Donor = ({ navigation }) => {
     const [myuid, setMyuid] = useState("");
   
    
-    async function getUsers() {
-      setLoading(true)
-      const querySnapshot = await getDocs(collection(db, "users"));
-      let list = [];
-      querySnapshot.forEach((doc) => {
-        list.push(doc.data());
-      });
-      setdisplayUser(list);
-      setLoading(false)
-    }
+ 
     async function checkUsers() {
       let TokenUid = await AsyncStorage.getItem('uid');
       setMyuid(TokenUid);
       console.log(" TokenUid mil gayi", TokenUid)
       
     }
+
     useEffect(() => {
       checkUsers();
-      getUsers();
+    },[]);
+
+
+    useEffect(() => {
+      setLoading(true)
+
+      const unsubscribe = onSnapshot(collection(db, "users"), (data) => {
+        let list = [];
+        data.forEach((doc) => {
+        list.push(doc.data());
+      });
+      setdisplayUser(list);
+      setLoading(false)
+      });
+      
+      
+      return () => unsubscribe();
     }, []);
     return (
       <SafeAreaView>
         <ScrollView>
         <View style={{marginHorizontal:15}}>
             <Text style={{textAlign:'center', fontSize: 30,marginBottom:10,fontWeight:'bold',color:'red'}}>Blood Donor List</Text>
-            <Text style={{textAlign:'center', fontSize: 22,marginBottom:20,fontWeight:'bold'}}>Chat with donar</Text>
+            <Text style={{textAlign:'center', fontSize: 22,marginBottom:20,fontWeight:'bold'}}>Chat with donor</Text>
         {Loading? <ActivityIndicator size={70} style={{marginTop:160}}/>:
 
         displayUser.map((e, idx) => {

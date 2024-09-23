@@ -44,10 +44,13 @@ const Signup = ({ navigation }) => {
        const uid = userCredential.user.uid;
        console.log("TCL: handleSignup -> uid", uid)
        console.log('UID saved successfully');
-       navigation.navigate("Home");
+       navigation.navigate("Onboardingscreen");
        setIsLoading(false)
       await AsyncStorage.setItem('uid', uid)
       console.log("uid save hogayi");
+      setName('')
+      setEmail('')
+      setPassword('')
       
     setIsLoading(false)
   })

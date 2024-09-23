@@ -9,80 +9,66 @@ import Doctorscreen from "./doctorscreen";
 import Donor from "./donor";
 import Donorform from "./donorform";
 import { NavigationContainer } from "@react-navigation/native";
-// import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Location from "./location";
 import Onboardingscreen from "./onboardingscreen";
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-// const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+
+function DrawerNavigator() {
+  return (
+    <Drawer.Navigator
+      initialRouteName="signup"
+      screenOptions={{
+        headerTitleAlign: 'center',
+        drawerActiveBackgroundColor: "grey",
+        drawerLabelStyle: {
+          fontSize: 18,
+          marginLeft: 10,
+          color: "black",
+        },
+        drawerStyle: {
+          backgroundColor: "white",
+        },
+      }}
+    >
+      <Drawer.Screen name="Home" component={Home} options={{ headerTitle: 'Donate-Blood-bank' }} />
+      <Drawer.Screen name="Connect with Doctors" component={Doctorscreen} />
+      <Drawer.Screen name="Chat with donors" component={Donor} options={{ headerTitle: 'Chat with donors' }} />
+      <Drawer.Screen name="Become a Donor" component={Donorform} />
+      <Drawer.Screen name="Location" component={Location} />
+      <Drawer.Screen name="Login" component={Login} />
+      <Drawer.Screen name="signup" component={Signup} />
+      <Drawer.Screen name="Logout" component={Logout} />
+    </Drawer.Navigator>
+  );
+}
 
 function App() {
   return (
     <PaperProvider>
-       <NavigationContainer>
-      <Drawer.Navigator  initialRouteName="signup" screenOptions={{headerTitleAlign: 'center',drawerActiveBackgroundColor:"black",drawerLabelStyle:{
-        fontSize:18,
-        marginLeft:10,
-        color:"white",
-        
-
-      },drawerStyle:{
-        backgroundColor:"red"
-      }}} >
-        <Drawer.Screen name="Home" component={Home}  options={{ headerTitle: 'Donate-Blood-bank' }} />
-        <Drawer.Screen name="chat" component={Chat} />
-        <Drawer.Screen name="Connect with Doctors" component={Doctorscreen} />
-        <Drawer.Screen name="Chat with donors" component={Donor} options={{ headerTitle: 'Chat with donors' }}/>
-        <Drawer.Screen name="Become a Donor" component={Donorform}  />
-        <Drawer.Screen name="Location" component={Location} />
-        <Drawer.Screen name="Login" component={Login} />
-        <Drawer.Screen name="signup" component={Signup} />
-        <Drawer.Screen name="Logout" component={Logout} />
-        <Drawer.Screen name="Onboardingscreen" component={Onboardingscreen} />
-      
-      </Drawer.Navigator>
-      {/* <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="chat" component={Chat} />
-      </Tab.Navigator> */}
-      </NavigationContainer>
-
-
-
-      {/* <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="signup"
-          screen={{ headerShown: false }}
-        >
+      <NavigationContainer>
+        <Stack.Navigator >
           <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{ headerShown: false }}
+              name="Main"
+              component={DrawerNavigator}
+              options={{ headerShown: false }}
+            />
+          <Stack.Screen 
+            name="Onboardingscreen" 
+            component={Onboardingscreen} 
+            options={{ headerShown: false }} 
           />
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{ headerShown: true }}
+          <Stack.Screen 
+            name="chat" 
+            component={Chat} 
+          
           />
-          <Stack.Screen
-            name="signup"
-            component={Signup}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="chat"
-            component={Chat}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="doctorscreen"
-            component={Doctorscreen}
-            options={{ headerShown: true }}
-          />
+          
         </Stack.Navigator>
-      </NavigationContainer> */}
+      </NavigationContainer>
     </PaperProvider>
   );
 }

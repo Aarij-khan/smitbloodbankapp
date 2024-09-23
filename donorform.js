@@ -11,15 +11,18 @@ const Donorform = () => {
     const [group, setGroup] = useState("");
     const [Loading, setIsLoading] = useState(false);
     const [uid, setUid] = useState('');
+    console.log("🚀 ~ Donorform ~ uid:", uid)
     const [age, setage] = useState('');
 
-    async function takingUid() {
+
+    async function getUser() {
       let ourUid = await AsyncStorage.getItem("uid")
-      console.log("ourUid:", ourUid)
       setUid(ourUid)
+      console.log("ourUid:", ourUid)
     }
+  
     useEffect(()=>{
-      takingUid()
+      getUser()
     },[])
 
     async function handlesubmit() {
