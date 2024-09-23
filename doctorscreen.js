@@ -1,10 +1,13 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text ,Linking } from "react-native";
 import LottieView from "lottie-react-native";
 import { Button } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Doctorscreen = () => {
+  function handleCall() {
+    Linking.openURL('tel:+92282183869');
+  }
   return (
     <View>
       <View>
@@ -50,6 +53,7 @@ const Doctorscreen = () => {
           buttonColor="white"
           textColor="red"
           labelStyle={{fontSize:21,fontWeight:"bold"}}
+          onPress={handleCall}
         >
           Call us
         </Button>

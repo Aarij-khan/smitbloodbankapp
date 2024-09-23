@@ -217,7 +217,7 @@ const Home = ({ navigation }) => {
                 need. Get involved and make an impact.
               </Text>
             </View>
-            <View style={{ flexDirection: "column", gap: 15 ,marginLeft:20}}>
+            <View style={{ flexDirection: "column", gap: 15 ,marginLeft:15}}>
               <Image
                 style={styles.imgs}
                 source={{
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
     objectFit: "fill",
   },
   imgs: {
-    width: 300,
+    width: 260,
     height: 200,
     objectFit: "fill",
   },
@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     width: 200,
-    marginLeft: 50,
+    marginLeft: 35,
   },
   requestButton: {
     backgroundColor: "#b71c1c",
