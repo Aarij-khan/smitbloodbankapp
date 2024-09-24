@@ -66,6 +66,7 @@ function App() {
             component={Chat} 
           
           />
+      
           
         </Stack.Navigator>
       </NavigationContainer>

@@ -62,7 +62,7 @@ const Home = ({ navigation }) => {
         <TouchableOpacity style={styles.requestButton}>
           <Text
             style={styles.requestButtonText}
-            onPress={() => navigation.navigate("doctorscreen")}
+            onPress={() => navigation.navigate("Connect with Doctors")}
           >
             Heart beats checkup
           </Text>
@@ -87,7 +87,7 @@ const Home = ({ navigation }) => {
         <TouchableOpacity style={styles.requestButton}>
           <Text
             style={styles.requestButtonText}
-            onPress={() => navigation.navigate("doctorscreen")}
+            onPress={() => navigation.navigate("Connect with Doctors")}
           >
             Consultation with doctors
           </Text>
@@ -116,7 +116,7 @@ const Home = ({ navigation }) => {
             Advice with experience doctors
           </Text>
         </TouchableOpacity>
-        <LottieView
+        {/* <LottieView
           source={require("./assets/blood6.json")}
           autoPlay
           loop
@@ -140,7 +140,7 @@ const Home = ({ navigation }) => {
           >
             Connect with Doctors
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <LottieView
           source={require("./assets/blood.json")}
           autoPlay

@@ -10,9 +10,8 @@ import { useRoute } from '@react-navigation/native';
 const Chat = () => {
   const route = useRoute();
   const { client } = route.params; 
-  //  console.log("TCL: Chat -> client", client)
-  //  console.log(client.uid, `samne wali ki uid`);
-  //  console.log(client.myuid, `meri uid`);
+   console.log(client.uid, `samne wali ki uid`);
+   console.log(client.myuid, `meri uid`);
   
   const [input,setInput] = useState("");
   const [Loading,setLoading] = useState(false);

@@ -14,14 +14,19 @@ const Donor = ({ navigation }) => {
   
    
  
-    async function checkUsers() {
-      let TokenUid = await AsyncStorage.getItem('uid');
-      setMyuid(TokenUid);
-      console.log(" TokenUid mil gayi", TokenUid)
-      
-    }
+ 
+    
 
     useEffect(() => {
+      async function checkUsers() {
+        let TokenUid = await AsyncStorage.getItem('uid');
+        if (TokenUid !== null) {
+          setMyuid(TokenUid);
+          console.log("TokenUid mil gayi:", TokenUid);
+        }
+        
+        
+      }
       checkUsers();
     },[]);
 
