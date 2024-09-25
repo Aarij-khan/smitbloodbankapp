@@ -8,14 +8,11 @@ const Logout = () => {
 
   async function handlelogout() {
     try {
-      var logout = await AsyncStorage.removeItem("uid")
-      console.log("TCL: handlelogout -> logout", logout)
-            console.log("UID removed from AsyncStorage");
-        navigation.navigate("Login");
-      
+      await AsyncStorage.removeItem("uid"); 
+      console.log("UID removed from localstorage");
+      navigation.navigate("Login");
     } catch (error) {
-			console.log("TCL: handlelogout -> error", error)
-      
+      console.log("Error removing uid:", error);
     }
   }
   return (

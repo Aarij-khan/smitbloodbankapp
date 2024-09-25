@@ -1,9 +1,10 @@
 import { View, Text ,ActivityIndicator} from 'react-native'
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, TextInput } from 'react-native-paper';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from './firebase.config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Donorform = () => {
     const [Name, setuserName] = useState("");
@@ -15,15 +16,21 @@ const Donorform = () => {
     const [age, setage] = useState('');
 
 
-    async function getUser() {
-      let ourUid = await AsyncStorage.getItem("uid")
-      setUid(ourUid)
-      console.log("ourUid:", ourUid)
-    }
+   
   
-    useEffect(()=>{
-      getUser()
-    },[])
+    useFocusEffect(
+      useCallback(() => {
+        async function getUser() {
+          let ourUid = await AsyncStorage.getItem("uid")
+          setUid(ourUid)
+          console.log("ourUid:", ourUid)
+        }
+  
+        getUser();
+  
+  
+      }, []) 
+    );
 
     async function handlesubmit() {
         if (Email != "" && Name != "" && group != "" && age != "" ) {

@@ -16,9 +16,9 @@ const Login = ({ navigation }) => {
       signInWithEmailAndPassword(auth, email, password)
   .then(async(userCredential) => {
     const uid = userCredential.user.uid;
+    await AsyncStorage.setItem('uid', uid)
 		console.log("TCL: handleLogin -> uid", uid)
     navigation.navigate("Onboardingscreen");
-    let x = await AsyncStorage.setItem('uid', uid)
     setIsLoading(false);
       
     setemail("")
