@@ -20,10 +20,9 @@ const Drawer = createDrawerNavigator();
 function DrawerNavigator() {
   return (
     <Drawer.Navigator
-      initialRouteName="signup"
       screenOptions={{
         headerTitleAlign: 'center',
-        drawerActiveBackgroundColor: "grey",
+        drawerActiveBackgroundColor: "#D3D3D3",
         drawerLabelStyle: {
           fontSize: 18,
           marginLeft: 10,
@@ -34,13 +33,11 @@ function DrawerNavigator() {
         },
       }}
     >
-      <Drawer.Screen name="Home" component={Home} options={{ headerTitle: 'Donate-Blood-bank' }} />
+      <Drawer.Screen name="Home" component={Home} options={{ headerTitle: 'Donate-Blood-bank' }} initialRouteName="Home" />
       <Drawer.Screen name="Connect with Doctors" component={Doctorscreen} />
       <Drawer.Screen name="Chat with donors" component={Donor} options={{ headerTitle: 'Chat with donors' }} />
       <Drawer.Screen name="Become a Donor" component={Donorform} />
       <Drawer.Screen name="Location" component={Location} />
-      <Drawer.Screen name="Login" component={Login} />
-      <Drawer.Screen name="signup" component={Signup} />
       <Drawer.Screen name="Logout" component={Logout} />
     </Drawer.Navigator>
   );
@@ -50,7 +47,7 @@ function App() {
   return (
     <PaperProvider>
       <NavigationContainer>
-        <Stack.Navigator >
+        <Stack.Navigator initialRouteName="Onboardingscreen" >
           <Stack.Screen
               name="Main"
               component={DrawerNavigator}
@@ -64,6 +61,18 @@ function App() {
           <Stack.Screen 
             name="chat" 
             component={Chat} 
+          
+          />
+          <Stack.Screen 
+            name="signup" 
+            component={Signup} 
+            options={{ headerShown: false }}
+          
+          />
+          <Stack.Screen 
+            name="Login" 
+            component={Login} 
+            options={{ headerShown: false }}
           
           />
       

@@ -1,16 +1,36 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import Onboarding from "react-native-onboarding-swiper";
 import LottieView from "lottie-react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Onboardingscreen = ({ navigation }) => {
+
+  useEffect(() => {
+    getuser();
+  
+   }, []);
+  
+     function getuser() {
+    AsyncStorage.getItem('uid')
+    .then((uid) => {
+      if (uid !== null) {
+        console.log('UID retrieved:', uid);
+        navigation.navigate('Main');
+      } else {
+        console.log('No UID found in AsyncStorage.');
+        navigation.navigate('Onboardingscreen');
+        
+      }
+    })
+   }
 
  
   return (
     <View style={{ flex: 1 }}>
       <Onboarding
-      onDone={()=>navigation.navigate("Home")}
-      onSkip={()=>navigation.navigate("Home")}
+      onDone={()=>navigation.navigate("Login")}
+      onSkip={()=>navigation.navigate("Login")}
         pages={[
         
           {
@@ -58,7 +78,7 @@ const Onboardingscreen = ({ navigation }) => {
               <Text style={{fontSize:24,color:'white',fontWeight:'bold'}}>Professional Doctors</Text>
             ),
             subtitle: (
-              <Text style={{fontSize:16,color:'white',marginTop:10,fontWeight:'semibold'}}>Certified Oocters from Top notch Unversities</Text>
+              <Text style={{fontSize:16,color:'white',marginTop:10,fontWeight:'semibold'}}>Certified Docters from Top notch Unversities</Text>
             ),
           },
         ]}

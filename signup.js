@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text ,ActivityIndicator } from "react-native";
 import { TextInput, Button, Appbar } from "react-native-paper";
-import {auth , db} from "./firebase.config";
+import {auth } from "./firebase.config";
 import {createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -14,24 +13,7 @@ const Signup = ({ navigation }) => {
   const [Email,setEmail] = useState("");
   const [Password,setPassword] = useState("");
   const [isLoading,setIsLoading] = useState(false);
- useEffect(() => {
-  getuser();
-
- }, []);
-
-   function getuser() {
-  AsyncStorage.getItem('uid')
-  .then((uid) => {
-    if (uid !== null) {
-      console.log('UID retrieved:', uid);
-      navigation.navigate('Home');
-    } else {
-      console.log('No UID found in AsyncStorage.');
-      navigation.navigate('signup');
-      
-    }
-  })
- }
+ 
 
   const handleSignup = () => {
 
@@ -44,7 +26,7 @@ const Signup = ({ navigation }) => {
        const uid = userCredential.user.uid;
        console.log("TCL: handleSignup -> uid", uid)
        console.log('UID saved successfully');
-       navigation.navigate("Onboardingscreen");
+       navigation.navigate("Main");
        setIsLoading(false)
       await AsyncStorage.setItem('uid', uid)
       console.log("uid save hogayi");
