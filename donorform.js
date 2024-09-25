@@ -10,9 +10,8 @@ const Donorform = () => {
     const [Name, setuserName] = useState("");
     const [Email, setEmail] = useState("");
     const [group, setGroup] = useState("");
-    const [Loading, setIsLoading] = useState(false);
+    const [Loading, setLoading] = useState(false);
     const [uid, setUid] = useState('');
-    console.log("🚀 ~ Donorform ~ uid:", uid)
     const [age, setage] = useState('');
 
 
@@ -23,7 +22,6 @@ const Donorform = () => {
         async function getUser() {
           let ourUid = await AsyncStorage.getItem("uid")
           setUid(ourUid)
-          console.log("ourUid:", ourUid)
         }
   
         getUser();
@@ -34,19 +32,20 @@ const Donorform = () => {
 
     async function handlesubmit() {
         if (Email != "" && Name != "" && group != "" && age != "" ) {
-            setIsLoading(true)
+          setLoading(true)
            
             let userInfo ={Email,Name,group,uid}
            
             await setDoc(doc(db, "users", uid),userInfo)
-            setIsLoading(false)
             setuserName('')
             setGroup('')
             setEmail('')
             setage('')
+            setLoading(false)
+            alert('Form submitted successfully')
         }else{
             alert("Enter details")
-            setIsLoading(false)
+            setLoading(false)
         }
     }
   return (
